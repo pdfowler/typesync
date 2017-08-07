@@ -41,9 +41,12 @@ async function _runCli (syncer: ITypeSyncer) {
   if (flags.dry) {
     C.log('—— DRY RUN — will not modify file ——')
   }
+  if (flags.opt) {
+    C.log('-- Adding Dependencies as **Optional** --')
+  }
   const result = await C.spinWhile(
     `Syncing type definitions in ${chalk.cyan(filePath)}...`,
-    () => syncer.sync(filePath, { dry: flags.dry })
+    () => syncer.sync(filePath, { dry: flags.dry, optional: flags.opt })
   )
 
   const formattedTypings = result.newTypings.map(formatPackageName).join('\n')
@@ -64,6 +67,7 @@ function printHelp () {
 
 Options
   {magenta.bold --dry}      dry run, won't save the package.json
+  {magenta.bold --opt}      add to optionalDependencies instead of devDependencies
   {magenta.bold --help}     shows this help menu
   `.trim())
 }

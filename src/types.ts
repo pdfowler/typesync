@@ -13,6 +13,11 @@ export interface ISyncOptions {
    * If set, will not write to package.json.
    */
   dry?: boolean
+
+  /**
+   * If set, will write to optionalDependencies.
+   */
+  optional?: boolean
 }
 
 /**
@@ -50,6 +55,7 @@ export interface IPackageFile {
   name: string
   dependencies?: IDependenciesSection
   devDependencies?: IDependenciesSection
+  optionalDependencies?: IDependenciesSection
   [key: string]: any
 }
 
